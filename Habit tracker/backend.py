@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 import json
 import os
 
-mongo_uri = os.environ.get("MONGO_URI")
+mongo_uri = os.getenv("MONGO_URI")
 
 client = MongoClient(mongo_uri)
 db = client["Habit_tracker"]
@@ -185,4 +185,6 @@ def delete_ent(ent_id):
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host = "0.0.0.0", port = port)
+
