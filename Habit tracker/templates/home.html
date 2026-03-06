@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel = "stylesheet" href = "{{url_for('static', filename = 'home.css')}}"
+    </head>
+    <body>
+        <h3>Choose the tasks you want and complete them</h3>
+        <form method = "POST" action = "{{url_for('add')}}">
+            <select name = "option" required>
+                <option value = "" disabled selected>Select an option</option>
+                <option value = "Sweep the floor">Sweep the floor</option>
+                <option value = "Mop the floor">Mop the floor</option>
+                <option value = "Sort out old items for backyard sale">Sort out old items</option>
+                <option value = "Host a backyard sale">Host backyard sale</option>
+                <option value = "Do homework">Do homework</option>
+                <option value = "Water plants">Water plants</option>
+                <option value = "Prepare a meal">Prepare meal</option>
+            </select>
+            <button type = "submit">Add</button>
+        </form>
+        <br>
+        <br>
+        <h3>Choose the entertainment you want and complete it</h3>
+        <form method = "POST" action = "{{url_for('entertain')}}">
+            <select name = "option" required>
+                <option value = "" disabled selected>Select an option</option>
+                <option value = "rest">Rest</option>
+            </select>
+            <button type = "submit">Add</button>
+        </form>
+        <!--Add entertainment option-->
+        <div class = "top-right">
+            <div class = "display-frame">
+                <h4>Emotion level: {{emo_val}}</h4>
+                <h4>Energy level: {{energy_val}}</h4>
+                <h4>Leisure & Rest account balance: {{lra}}</h4>
+            </div>
+        </div>
+        <div style = "margin-top:40px;">
+            {% for task in tasks %}
+                <div class = "task-frame">
+                    <div class = "{% if task.completed %}completed{% endif %}">
+                        {{task.name}}
+                    </div>
+
+                    <div class = "buttons">
+                        <a href = "{{url_for('complete', tsk_id = task._id)}}">
+                            <button type = "button">Complete</button>
+                        </a>
+                        <a href = "{{url_for('delete', tsk_id = task._id)}}">
+                            <button type = "button">Delete</button>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% if err_msg_ent %}
+            <p style = "color:red">{{err_msg_ent}}</p>
+        {% endif %}
+        <div style = "margin-top:40px;">
+            {% for ent in entertainment %}
+                <div class = "task-frame">
+                    <div class = "{% if ent.completed %}completed{% endif %}">
+                        <a href = "{{url_for('complete_ent', ent_id = ent._id)}}">
+                            <button type = "button">Complete</button>
+                        </a>
+                        <a href = "{{url_for('delete_ent', ent_id = ent._id)}}">
+                            <button type = "button">Delete</button>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
