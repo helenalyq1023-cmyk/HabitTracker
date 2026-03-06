@@ -1,0 +1,8 @@
+[
+    {
+        "name":"rest",
+        "energy_gain":15,
+        "emotion_gain":8,
+        "LRA_cost":-10
+    }
+]
